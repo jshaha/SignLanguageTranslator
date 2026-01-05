@@ -227,7 +227,7 @@ def info():
     """Get model information"""
     if metadata is None:
         return jsonify({'error': 'Model not loaded'}), 500
-    
+
     return jsonify({
         'model_type': metadata.get('model_type', 'unknown'),
         'num_classes': metadata.get('num_classes', 0),
@@ -236,28 +236,31 @@ def info():
         'feature_description': metadata.get('feature_description', '')
     })
 
+# Initialize model and MediaPipe when module is loaded
+# This runs whether using Flask directly or Gunicorn
+try:
+    print("Initializing Sign Language Translator...")
+    load_model()
+    initialize_mediapipe()
+    print("Initialization complete!")
+except Exception as e:
+    print(f"Error initializing: {e}")
+    print("Make sure you have trained the model first!")
+    # Don't exit - let the app start so we can see the error in logs
+
 if __name__ == '__main__':
-    # Load model and initialize MediaPipe
-    try:
-        load_model()
-        initialize_mediapipe()
-    except Exception as e:
-        print(f"Error initializing: {e}")
-        print("Make sure you have trained the model first!")
-        exit(1)
-    
     print("\n" + "="*60)
     print("SIGN LANGUAGE TRANSLATOR WEB APP")
     print("="*60)
-    
+
     # Get port from environment variable (for Render, Heroku, etc.) or use default
     port = int(os.environ.get('PORT', 5001))
     debug = os.environ.get('FLASK_ENV') != 'production'
-    
+
     print(f"Starting Flask server on port {port}...")
     print(f"Open your browser and navigate to: http://localhost:{port}")
     print("="*60 + "\n")
-    
+
     # Run Flask app
     app.run(host='0.0.0.0', port=port, debug=debug)
 
