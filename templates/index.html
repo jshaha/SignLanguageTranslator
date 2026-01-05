@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Translator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🤟 Sign Language Translator</h1>
+            <p class="subtitle">Real-time ASL letter recognition using AI</p>
+        </header>
+
+        <main>
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                    <div class="overlay">
+                        <div class="roi-box"></div>
+                        <div id="status" class="status">Initializing camera...</div>
+                        <div id="videoPrediction" class="video-prediction">
+                            <div class="video-prediction-letter">-</div>
+                            <div class="video-prediction-confidence">0%</div>
+                        </div>
+                        <div id="videoTopPredictions" class="video-top-predictions"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="startBtn" class="btn btn-primary">Start Camera</button>
+                <button id="stopBtn" class="btn btn-secondary" disabled>Stop Camera</button>
+            </div>
+
+            <div class="results">
+                <div class="prediction-card">
+                    <div class="card-header">
+                        <h2>Prediction</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="prediction" class="prediction-letter">-</div>
+                        <div id="confidence" class="confidence">
+                            <div class="confidence-bar">
+                                <div id="confidenceFill" class="confidence-fill"></div>
+                            </div>
+                            <span id="confidenceText">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="top-predictions-card">
+                    <div class="card-header">
+                        <h2>Top Predictions</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="topPredictions" class="predictions-list">
+                            <div class="prediction-item">-</div>
+                            <div class="prediction-item">-</div>
+                            <div class="prediction-item">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-card">
+                    <h3>📋 Instructions</h3>
+                    <ul>
+                        <li>Click "Start Camera" to begin</li>
+                        <li>Position your hand in the blue rectangle</li>
+                        <li>Make a sign language letter (A-Z)</li>
+                        <li>The AI will recognize it in real-time</li>
+                        <li>Works with any lighting and background!</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>ℹ️ About</h3>
+                    <p>This AI uses MediaPipe hand landmarks and a neural network to recognize sign language letters.
+                        It's robust to lighting conditions and works with any skin tone.</p>
+                    <div id="modelInfo" class="model-info">
+                        <p><strong>Model Accuracy:</strong> <span id="modelAccuracy">-</span></p>
+                        <p><strong>Classes:</strong> <span id="modelClasses">-</span></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by TensorFlow & MediaPipe</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+
+</html>

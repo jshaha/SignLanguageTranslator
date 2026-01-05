@@ -1,0 +1,41 @@
+{
+  "num_samples": 4822,
+  "num_features": 63,
+  "num_classes": 26,
+  "classes": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z"
+  ],
+  "feature_description": "21 landmarks \u00d7 3 coordinates (x, y, z) = 63 features",
+  "augmentation": "Horizontal flipping (2x data: original + mirrored)",
+  "hand_agnostic": true,
+  "detection_stats": {
+    "total": 2600,
+    "detected": 2411,
+    "failed": 189
+  }
+}
